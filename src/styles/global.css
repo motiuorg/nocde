@@ -508,7 +508,6 @@ table.projects { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
 .mk .badge circle { fill: var(--agua); stroke: var(--blanco); stroke-width: 1.4; }
 .mk .badge path { fill: none; stroke: #fff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
 .mk.is-dim .badge { opacity: 0.6; }
-.mk.no-mw .dot { stroke-dasharray: 3 2.4; }
 .mk.no-mw.op .dot, .mk.no-mw.con .dot, .mk.no-mw.pro .dot { stroke-dasharray: 3 2.4; }
 
 /* Legend */
@@ -551,3 +550,11 @@ table.projects { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
 .thanks-use h4 { margin: 0 0 8px; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ocre-tinta); }
 .thanks-use ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-family: var(--f-serif); line-height: 1.5; }
 @media (max-width: 800px) { .thanks { grid-template-columns: minmax(0, 1fr); } }
+
+/* Server-rack mark inside project markers */
+.mk .srv { fill: none; stroke: var(--tinta); }
+.mk .srv-dot { fill: var(--tinta); }
+.mk .srv-back { fill: var(--blanco); stroke: none; }
+.mk.op .srv { stroke: #fff; }
+.mk.op .srv-dot { fill: #fff; }
+.mk.pro .srv-back { fill: color-mix(in srgb, var(--ocre) 12%, var(--blanco)); }

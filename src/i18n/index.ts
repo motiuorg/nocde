@@ -17,12 +17,12 @@ export const ESTADO_KEY: Record<string, string> = {
   'Desconocido': 'unk',
 };
 
-// Icon key for each type of resistance (see lib/shared.ts).
+// Every kind of resistance (platform, campaign, organisation, other) uses the megaphone icon.
 export const TIPO_ICON: Record<string, string> = {
-  'Plataforma vecinal': 'platform',
+  'Plataforma vecinal': 'campaign',
   'Campaña o iniciativa': 'campaign',
-  'Organización': 'org',
-  'Otro': 'other',
+  'Organización': 'campaign',
+  'Otro': 'campaign',
 };
 
 const values = {

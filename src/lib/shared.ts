@@ -4,12 +4,28 @@
 export const R_DEFAULT = 6.5;
 export const radius = (mw: number | null) => (mw == null ? R_DEFAULT : 2.5 + Math.sqrt(Math.max(mw, 1)) * 0.55);
 
+// Server-rack mark drawn inside a project marker: three stacked units, each with a status light.
+// s = scale (about half the marker radius).
+export function rackPaths(s: number): string {
+  const w = 1.7 * s, h = 0.52 * s, gap = 0.72 * s, sw = Math.max(0.8, s * 0.17).toFixed(2);
+  let out = '';
+  for (const i of [-1, 0, 1]) {
+    const y = i * gap - h / 2;
+    out += `<rect class="srv" x="${(-w / 2).toFixed(2)}" y="${y.toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}" rx="${(0.12 * s).toFixed(2)}" stroke-width="${sw}"/>`;
+    out += `<circle class="srv-dot" cx="${(w * 0.28).toFixed(2)}" cy="${(i * gap).toFixed(2)}" r="${(0.09 * s).toFixed(2)}"/>`;
+  }
+  return out;
+}
+
 // 14px status glyph matching the map marker styles (classes from global.css).
 export function glyph(key: string, ring = false): string {
   const x = key === 'can' ? '<path class="x" d="M4.2 4.2l5.6 5.6M9.8 4.2l-5.6 5.6"/>' : '';
-  const r = ring ? '<circle class="ring" cx="7" cy="7" r="6"/>' : '';
-  const dot = `<circle class="dot" cx="7" cy="7" r="${ring ? 3.6 : 5.5}"/>`;
-  return `<svg class="glyph mk ${key}" viewBox="0 0 14 14" aria-hidden="true">${r}${dot}${x}</svg>`;
+  const r = ring ? '<circle class="ring" cx="7" cy="7" r="6.4"/>' : '';
+  const dr = ring ? 4.4 : 6;
+  const dot = `<circle class="dot" cx="7" cy="7" r="${dr}"/>`;
+  const back = key === 'op' ? '' : `<circle class="srv-back" cx="7" cy="7" r="${dr * 0.7}"/>`;
+  const rack = key === 'can' ? '' : `<g transform="translate(7,7)">${rackPaths(dr * 0.42)}</g>`;
+  return `<svg class="glyph mk ${key}" viewBox="0 0 14 14" aria-hidden="true">${r}${dot}${back}${rack}${x}</svg>`;
 }
 
 // Icons for the kinds of resistance (24x24, drawn with strokes).

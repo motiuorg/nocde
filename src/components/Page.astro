@@ -5,8 +5,8 @@ import '../styles/global.css';
 import centrosRaw from '../data/centros.json';
 import organizaciones from '../data/organizaciones.json';
 import meta from '../data/meta.json';
-import { W, H, INSET, project, regions } from '../lib/geo';
-import { glyph, icon, radius, fmtInt, ICON_PATHS } from '../lib/shared';
+import { W, H, project, regions } from '../lib/geo';
+import { glyph, icon, radius, fmtInt, rackPaths, ICON_PATHS } from '../lib/shared';
 import { strings, v, ESTADOS, ESTADO_KEY, TIPOS, TIPO_ICON, TEMAS, THANKS, THANKS_USE, SOURCES, type Lang } from '../i18n';
 
 interface Props { lang: Lang }
@@ -26,7 +26,6 @@ const contested = centros.filter((c) => c.organizaciones.length > 0).length;
 const pct = Math.round((contested / total) * 100);
 const pending = meta.counts.centrosPendientes;
 const temasUsed = TEMAS.filter((tm) => organizaciones.some((o) => o.temas.includes(tm)));
-const tiposUsed = TIPOS.filter((tp) => organizaciones.some((o) => o.tipo === tp));
 
 // Draw big markers first so small ones stay clickable on top.
 const markers = [...centros].sort((a, b) => b.r - a.r);
@@ -176,8 +175,6 @@ const legendSizes = [10, 100, 500, 1000];
                     <g id="regions">
                       {regions.map((r) => <path class="region" d={r.d} data-name={r.name}><title>{v(lang, r.name)}</title></path>)}
                     </g>
-                    <rect class="inset-frame" x={INSET.x} y={INSET.y} width={INSET.w} height={INSET.h} rx="3" />
-                    <text class="inset-label" x={INSET.x + 8} y={INSET.y + 16}>{v(lang, 'Canarias')}</text>
                   </g>
                   <g id="markers">
                     {markers.map((c) => {
@@ -189,6 +186,8 @@ const legendSizes = [10, 100, 500, 1000];
                           <circle class="halo" r={c.r + (has ? 9 : 4.5)} />
                           {has && <circle class="ring" r={c.r + 3.5} />}
                           <circle class="dot" r={c.r} />
+                          {c.k !== 'op' && c.k !== 'can' && <circle class="srv-back" r={c.r * 0.7} />}
+                          {c.k !== 'can' && <g set:html={rackPaths(c.r * 0.42)} />}
                           {c.k === 'can' && <path class="x" d={`M${-c.r * 0.6},${-c.r * 0.6}L${c.r * 0.6},${c.r * 0.6}M${c.r * 0.6},${-c.r * 0.6}L${-c.r * 0.6},${c.r * 0.6}`} />}
                           {has && (
                             <g class="badge" transform={`translate(${bd},${-bd})`}>
@@ -232,10 +231,6 @@ const legendSizes = [10, 100, 500, 1000];
                       {t.legend.sizeNone}
                     </span>
                   </span>
-                </span>
-                <span class="item types">
-                  {t.legend.types}:
-                  {tiposUsed.map((tp) => <span class="type-chip"><Fragment set:html={icon(TIPO_ICON[tp], 15)} />{v(lang, tp)}</span>)}
                 </span>
               </div>
             </div>
