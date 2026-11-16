@@ -133,15 +133,15 @@ export function init() {
   const z = zoom<SVGSVGElement, unknown>()
     .scaleExtent([1, 12])
     .translateExtent([[-120, -120], [VB.width + 120, VB.height + 120]])
-    // Wheel zooms only with Ctrl/⌘ (so the page can still scroll); on touch, two fingers.
+    // Wheel zooms directly; on touch, two fingers (one finger scrolls the page).
     .wheelDelta((e: any) => -e.deltaY * (e.deltaMode === 1 ? 0.05 : e.deltaMode ? 1 : 0.0015))
     .filter((e: any) => {
-      if (e.type === 'wheel') {
-        if (e.ctrlKey || e.metaKey) return true;
+      if (e.type === 'wheel') return true;
+      if (e.type.startsWith('touch')) {
+        if ((e.touches?.length ?? 0) >= 2) return true;
         showHint();
         return false;
       }
-      if (e.type.startsWith('touch')) return (e.touches?.length ?? 0) >= 2;
       return !e.button;
     })
     .on('zoom', (e) => { place(e.transform); hideTip(); });

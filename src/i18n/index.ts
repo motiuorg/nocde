@@ -112,7 +112,7 @@ export const strings = {
     zoomIn: 'Acercar',
     zoomOut: 'Alejar',
     zoomReset: 'Ver toda España',
-    mapHint: 'Usa Ctrl + rueda (o ⌘ + rueda) para hacer zoom; con dos dedos en el móvil. Doble clic también acerca.',
+    mapHint: 'Usa dos dedos para mover y hacer zoom en el mapa.',
     clusterPill: (name: string, n: number) => `${name} · ${n}`,
     legend: {
       title: 'Leyenda',
@@ -251,7 +251,7 @@ export const strings = {
     zoomIn: 'Zoom in',
     zoomOut: 'Zoom out',
     zoomReset: 'Show all of Spain',
-    mapHint: 'Use Ctrl + wheel (or ⌘ + wheel) to zoom, or two fingers on a phone. Double-click also zooms in.',
+    mapHint: 'Use two fingers to move and zoom the map.',
     clusterPill: (name: string, n: number) => `${name} · ${n}`,
     legend: {
       title: 'Legend',
