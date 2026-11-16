@@ -1,0 +1,25 @@
+{
+  "name": "mapa-centros-datos-resistencias",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Prototipo de Motiu: mapa de centros de datos y resistencias en España",
+  "scripts": {
+    "data": "node scripts/normalize-notion.mjs",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "build:preview": "astro build && node scripts/relativize.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource-variable/literata": "^5.3.0",
+    "astro": "^7.4.12",
+    "d3-geo": "^3.1.2",
+    "d3-scale": "^4.0.3",
+    "d3-selection": "^3.0.1",
+    "d3-zoom": "^3.0.1",
+    "es-atlas": "^0.6.0",
+    "topojson-client": "^3.1.0"
+  }
+}

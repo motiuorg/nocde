@@ -1,0 +1,418 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource-variable/literata/index.css';
+import '../styles/global.css';
+import centrosRaw from '../data/centros.json';
+import organizaciones from '../data/organizaciones.json';
+import meta from '../data/meta.json';
+import { W, H, INSET, project, regions } from '../lib/geo';
+import { glyph, icon, radius, fmtInt, ICON_PATHS } from '../lib/shared';
+import { strings, v, ESTADOS, ESTADO_KEY, TIPOS, TIPO_ICON, TEMAS, THANKS, THANKS_USE, SOURCES, type Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = strings[lang];
+const other = lang === 'es' ? 'en/index.html' : '../index.html';
+
+const centros = centrosRaw.map((c) => {
+  const [x, y] = project(c.lon, c.lat);
+  return { ...c, x, y, r: Math.round(radius(c.mw) * 10) / 10, k: ESTADO_KEY[c.estado] };
+});
+
+// Stats
+const total = centros.length;
+const ccaas = [...new Set(centros.map((c) => c.ccaa))].sort((a, b) => v(lang, a).localeCompare(v(lang, b), lang));
+const contested = centros.filter((c) => c.organizaciones.length > 0).length;
+const pct = Math.round((contested / total) * 100);
+const pending = meta.counts.centrosPendientes;
+const temasUsed = TEMAS.filter((tm) => organizaciones.some((o) => o.temas.includes(tm)));
+const tiposUsed = TIPOS.filter((tp) => organizaciones.some((o) => o.tipo === tp));
+
+// Draw big markers first so small ones stay clickable on top.
+const markers = [...centros].sort((a, b) => b.r - a.r);
+const mega = ICON_PATHS.campaign;
+
+const clientData = {
+  lang,
+  centros: centros.map(({ id, slug, nombre, municipio, ccaa, operador, mw, estado, x, y, r, k, fuente, verificado, organizaciones, resumen, cifras, precision }) => ({
+    id, slug, nombre, municipio, ccaa, operador, mw, estado, x, y, r, k, fuente, verificado, organizaciones, resumen, cifras, precision,
+  })),
+  organizaciones: organizaciones.map(({ id, slug, nombre, tipo, temas, estado, ambito, web, centros }) => ({
+    id, slug, nombre, tipo, temas, estado, ambito, web, centros, icon: TIPO_ICON[tipo] ?? 'other',
+  })),
+  icons: ICON_PATHS,
+  i18n: {
+    panel: { ...t.panel, mock: t.contrib.mock },
+    table: t.table,
+    values: Object.fromEntries(
+      [
+        ...ESTADOS, ...TEMAS, ...TIPOS,
+        ...centros.map((c) => c.ccaa),
+        ...organizaciones.flatMap((o) => [o.estado, o.ambito ?? '']),
+      ].map((x) => [x, v(lang, x)]),
+    ),
+    showing: t.filters.showing('{n}' as any, '{total}' as any),
+  },
+};
+const exported = t.fmtDate(meta.exportedAt.slice(0, 10));
+const legendSizes = [10, 100, 500, 1000];
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t.htmlTitle}</title>
+    <meta name="description" content={t.description} />
+    <meta name="robots" content="noindex" />
+    <link rel="alternate" hreflang={lang === 'es' ? 'en' : 'es'} href={other} />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%23b5432b'/%3E%3Ccircle cx='16' cy='16' r='13.5' fill='none' stroke='%231f6c8a' stroke-width='3'/%3E%3C/svg%3E" />
+    <!-- GoatCounter: cookieless, privacy-friendly analytics. Emitted unconditionally (Astro hoists scripts in conditionals). -->
+    <script is:inline data-goatcounter="https://nocde.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#mapa">{t.skip}</a>
+    <div class="ribbon" role="note">{t.ribbon}</div>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="wordmark" href="#top" aria-label={t.htmlTitle}>
+          <span>{t.wordmark1}</span>
+          <span>{t.wordmark2a}<em>{t.wordmark2b}</em>{t.wordmark2c}</span>
+        </a>
+        <nav class="nav" aria-label="Principal">
+          <a href="#mapa">{t.nav.mapa}</a>
+          <a href="#proyectos">{t.nav.proyectos}</a>
+          <a href="#resistencias">{t.nav.resistencias}</a>
+          <a href="#contexto">{t.nav.contexto}</a>
+          <a href="#gracias">{t.nav.gracias}</a>
+          <a href="#metodologia">{t.nav.metodologia}</a>
+          <a href="#colabora">{t.nav.colabora}</a>
+          <a class="lang" href={other} hreflang={lang === 'es' ? 'en' : 'es'} aria-label={t.langSwitchLabel}>{t.langSwitch}</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero"><div class="wrap">
+        <h1>{t.heroTitle}<span class="l2">{t.heroTitle2}</span></h1>
+        <p class="lead">{t.heroLead}</p>
+        <p class="hero-credit">{t.heroCredit} <a href="#gracias">{t.heroCreditLink} →</a></p>
+        <div class="stats">
+          <div class="stat"><b>{total}</b><span>{t.stats.proyectos}</span></div>
+          <div class="stat"><b>{ccaas.length}</b><span>{t.stats.ccaa}</span></div>
+          <div class="stat is-agua"><b>{organizaciones.length}</b><span>{t.stats.orgs}</span></div>
+          <div class="stat is-agua"><b>{pct}&nbsp;%</b><span>{t.stats.contested}</span></div>
+          <div class="stat is-ocre"><b>{pending}</b><span>{t.stats.pending}</span></div>
+        </div>
+      </div></section>
+
+      <!-- 01 Mapa -->
+      <section class="section" id="mapa" aria-labelledby="h-mapa">
+        <div class="wrap">
+          <div class="section-head"><span class="num">01</span><h2 id="h-mapa">{t.s01}</h2></div>
+          <p class="section-intro">{t.mapIntro}</p>
+
+          <details class="filters-box" id="filters-box" open>
+          <summary><span>{t.filters.title}</span><span class="count" id="count-sum">{t.filters.showing(total, total)}</span></summary>
+          <form class="filters" id="filters" aria-label={t.filters.title} onsubmit="return false">
+            <fieldset>
+              <legend>{t.filters.estado}</legend>
+              <div class="estado-toggles">
+                {ESTADOS.filter((e) => centros.some((c) => c.estado === e)).map((e) => (
+                  <label class="toggle">
+                    <input type="checkbox" name="estado" value={e} checked />
+                    <Fragment set:html={glyph(ESTADO_KEY[e])} />
+                    {v(lang, e)}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <div>
+              <label class="lbl" for="f-ccaa">{t.filters.ccaa}</label>
+              <select class="select" id="f-ccaa" name="ccaa">
+                <option value="">{t.filters.ccaaAll}</option>
+                {ccaas.map((c) => <option value={c}>{v(lang, c)}</option>)}
+              </select>
+            </div>
+            <div>
+              <label class="lbl" for="f-size">{t.filters.size}</label>
+              <select class="select" id="f-size" name="size">
+                <option value="">{t.filters.sizeAll}</option>
+                {t.filters.sizes.map((s, i) => <option value={String(i)}>{s}</option>)}
+              </select>
+            </div>
+            <div>
+              <label class="lbl" for="f-tema">{t.filters.tema}</label>
+              <select class="select" id="f-tema" name="tema">
+                <option value="">{t.filters.temaAll}</option>
+                {temasUsed.map((tm) => <option value={tm}>{v(lang, tm)}</option>)}
+              </select>
+            </div>
+            <label class="switch"><input type="checkbox" name="contested" id="f-contested" />{t.filters.contested}</label>
+            <div class="filters-meta">
+              <span class="count" id="count" aria-live="polite">{t.filters.showing(total, total)}</span>
+              <button type="button" class="btn-link" id="f-reset">{t.filters.reset}</button>
+            </div>
+          </form>
+          </details>
+
+          <div class="org-focus" id="org-focus" role="status">
+            <span>{t.orgFocus} <b id="org-focus-name"></b></span>
+            <button type="button" id="org-focus-clear">{t.orgFocusClear}</button>
+          </div>
+
+          <div class="map-layout">
+            <div>
+              <div class="map-frame" id="map-frame">
+                <svg id="map" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={t.s01}>
+                  <defs>
+                    <pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                      <rect width="4" height="4" fill="var(--blanco)" />
+                      <line x1="0" y1="0" x2="0" y2="4" stroke="var(--almagre)" stroke-width="2.2" />
+                    </pattern>
+                  </defs>
+                  <g id="zoom-layer">
+                    <g id="regions">
+                      {regions.map((r) => <path class="region" d={r.d} data-name={r.name}><title>{v(lang, r.name)}</title></path>)}
+                    </g>
+                    <rect class="inset-frame" x={INSET.x} y={INSET.y} width={INSET.w} height={INSET.h} rx="3" />
+                    <text class="inset-label" x={INSET.x + 8} y={INSET.y + 16}>{v(lang, 'Canarias')}</text>
+                  </g>
+                  <g id="markers">
+                    {markers.map((c) => {
+                      const has = c.organizaciones.length > 0;
+                      const bd = (c.r + 3.5) * 0.74;
+                      return (
+                        <g class={`mk ${c.k}${c.mw == null ? ' no-mw' : ''}`} data-id={c.id} data-x={c.x} data-y={c.y} transform={`translate(${c.x},${c.y})`} tabindex="0" role="button"
+                          aria-label={`${c.nombre}, ${c.municipio}. ${v(lang, c.estado)}${c.mw != null ? `, ${fmtInt(c.mw, lang)} MW` : ''}${has ? `. ${t.legend.ring}` : ''}`}>
+                          <circle class="halo" r={c.r + (has ? 9 : 4.5)} />
+                          {has && <circle class="ring" r={c.r + 3.5} />}
+                          <circle class="dot" r={c.r} />
+                          {c.k === 'can' && <path class="x" d={`M${-c.r * 0.6},${-c.r * 0.6}L${c.r * 0.6},${c.r * 0.6}M${c.r * 0.6},${-c.r * 0.6}L${-c.r * 0.6},${c.r * 0.6}`} />}
+                          {has && (
+                            <g class="badge" transform={`translate(${bd},${-bd})`}>
+                              <circle r="6.6" />
+                              <path d={mega} transform="translate(-4.4,-4.4) scale(0.37)" />
+                            </g>
+                          )}
+                        </g>
+                      );
+                    })}
+                  </g>
+                </svg>
+                <div class="map-controls">
+                  <button type="button" id="zoom-in" aria-label={t.zoomIn} title={t.zoomIn}>+</button>
+                  <button type="button" id="zoom-out" aria-label={t.zoomOut} title={t.zoomOut}>−</button>
+                  <button type="button" id="zoom-reset" aria-label={t.zoomReset} title={t.zoomReset}>⤢</button>
+                </div>
+                <div class="tooltip" id="tooltip" role="presentation"></div>
+              </div>
+
+              <div class="legend" aria-label={t.legend.title}>
+                <h3>{t.legend.title}</h3>
+                {ESTADOS.filter((e) => centros.some((c) => c.estado === e)).map((e) => <span class="item"><Fragment set:html={glyph(ESTADO_KEY[e])} />{v(lang, e)}</span>)}
+                <span class="item"><span class="legend-res"><Fragment set:html={glyph('op', true)} /></span>{t.legend.ring}</span>
+                <span class="item">
+                  {t.legend.size}:
+                  <span class="sizes">
+                    {legendSizes.map((mw) => {
+                      const r = radius(mw);
+                      return (
+                        <span>
+                          <svg width={r * 2 + 2} height={r * 2 + 2} viewBox={`${-r - 1} ${-r - 1} ${r * 2 + 2} ${r * 2 + 2}`} aria-hidden="true">
+                            <circle r={r} fill="none" stroke="currentColor" stroke-width="1.2" />
+                          </svg>
+                          {fmtInt(mw, lang)}
+                        </span>
+                      );
+                    })}
+                    <span>
+                      <svg width="16" height="16" viewBox="-8 -8 16 16" aria-hidden="true"><circle r="6.5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 2" /></svg>
+                      {t.legend.sizeNone}
+                    </span>
+                  </span>
+                </span>
+                <span class="item types">
+                  {t.legend.types}:
+                  {tiposUsed.map((tp) => <span class="type-chip"><Fragment set:html={icon(TIPO_ICON[tp], 15)} />{v(lang, tp)}</span>)}
+                </span>
+              </div>
+            </div>
+
+            <aside class="panel is-empty" id="panel" aria-live="polite">
+              <p>{t.panel.empty}</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 Proyectos -->
+      <section class="section alt" id="proyectos" aria-labelledby="h-proyectos">
+        <div class="wrap">
+          <div class="section-head"><span class="num">02</span><h2 id="h-proyectos">{t.s02}</h2></div>
+          <p class="section-intro">{t.tableIntro}</p>
+          <div class="table-wrap">
+            <table class="projects" id="table">
+              <thead>
+                <tr>
+                  <th data-sort="nombre" aria-sort="none"><button type="button">{t.table.nombre}</button></th>
+                  <th data-sort="municipio" aria-sort="none"><button type="button">{t.table.municipio}</button></th>
+                  <th data-sort="ccaa" aria-sort="none"><button type="button">{t.table.ccaa}</button></th>
+                  <th data-sort="operador" aria-sort="none"><button type="button">{t.table.operador}</button></th>
+                  <th data-sort="mw" class="num" aria-sort="descending"><button type="button">{t.table.mw}</button></th>
+                  <th data-sort="estado" aria-sort="none"><button type="button">{t.table.estado}</button></th>
+                  <th data-sort="oposicion" aria-sort="none"><button type="button">{t.table.oposicion}</button></th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+            <p class="table-empty" id="table-empty" hidden>{t.table.none}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 Resistencias -->
+      <section class="section" id="resistencias" aria-labelledby="h-resistencias">
+        <div class="wrap">
+          <div class="section-head"><span class="num">03</span><h2 id="h-resistencias">{t.s03}</h2></div>
+          <p class="section-intro">{t.orgsIntro}</p>
+          <div class="tema-filter" id="tema-filter" role="group" aria-label={t.filters.tema}>
+            <button type="button" data-tema="" aria-pressed="true">{t.orgsAll}</button>
+            {temasUsed.map((tm) => <button type="button" data-tema={tm} aria-pressed="false">{v(lang, tm)}</button>)}
+          </div>
+          <div class="orgs" id="orgs">
+            {organizaciones.map((o) => (
+              <article class={`org st-${o.estado === 'Activa' ? 'activa' : o.estado === 'Concluida' ? 'concluida' : 'verificar'}`} data-id={o.id} data-temas={o.temas.join('|')}>
+                <div class="top">
+                  <span class="tipo"><Fragment set:html={icon(TIPO_ICON[o.tipo] ?? 'other', 18, 'ico big')} />{v(lang, o.tipo)}</span>
+                  <span>{v(lang, o.estado)}</span>
+                </div>
+                <h3>{o.nombre}</h3>
+                <p class="ambito">{v(lang, o.ambito ?? '')}</p>
+                {o.resumen && <p class="resumen">{o.resumen}</p>}
+                <div class="chips">{o.temas.map((tm) => <span class="chip">{v(lang, tm)}</span>)}</div>
+                <div class="foot">
+                  {o.centros.length > 0 ? (
+                    <>
+                      <span>{t.orgCard.linked(o.centros.length)}</span>
+                      <button type="button" data-show-org={o.id}>{t.orgCard.show}</button>
+                    </>
+                  ) : (
+                    <span>{t.orgCard.unlinked}</span>
+                  )}
+                </div>
+                {o.web && <a class="src" href={o.web} rel="noopener" target="_blank">{t.orgCard.source} ↗</a>}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 Contexto -->
+      <section class="section alt" id="contexto" aria-labelledby="h-contexto">
+        <div class="wrap">
+          <div class="section-head"><span class="num">04</span><h2 id="h-contexto">{t.s04}</h2></div>
+          <div class="context">
+            {t.context.map((c) => (
+              <article class={`k-${c.k}`}><h3>{c.t}</h3><p>{c.p}</p></article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 Gracias -->
+      <section class="section" id="gracias" aria-labelledby="h-gracias">
+        <div class="wrap">
+          <div class="section-head"><span class="num">05</span><h2 id="h-gracias">{t.s05}</h2></div>
+          <h3 class="thanks-title">{t.thanksTitle}</h3>
+          <p class="section-intro">{t.thanksIntro}</p>
+          <ul class="thanks">
+            {THANKS.map((th) => (
+              <li>
+                <a class="name" href={th.url} rel="noopener" target="_blank">{th.name} ↗</a>
+                <p>{lang === 'es' ? th.es : th.en}</p>
+                {th.extra && (
+                  <span class="extra">
+                    {th.extra.map((x) => <a href={x.url} rel="noopener" target="_blank">{x.label}</a>)}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+          <div class="thanks-use">
+            <h4>{t.thanksUse}</h4>
+            <ul>{THANKS_USE[lang].map((x) => <li>{x}</li>)}</ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 Metodología -->
+      <section class="section alt" id="metodologia" aria-labelledby="h-metodologia">
+        <div class="wrap">
+          <div class="section-head"><span class="num">06</span><h2 id="h-metodologia">{t.s06}</h2></div>
+          <div class="method">
+            <div>
+              <h3>{t.method.readTitle}</h3>
+              <ol>{t.method.read.map((r) => <li>{r}</li>)}</ol>
+              <p class="snap">{t.method.snapshot(exported)}</p>
+            </div>
+            <div>
+              <h3>{t.method.sourcesTitle}</h3>
+              <ul>{SOURCES.map((s) => <li><a href={s.url} rel="noopener" target="_blank">{s.name}</a></li>)}</ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 Colabora -->
+      <section class="section" id="colabora" aria-labelledby="h-colabora">
+        <div class="wrap">
+          <div class="section-head"><span class="num">07</span><h2 id="h-colabora">{t.s07}</h2></div>
+          <p class="section-intro">{t.contribIntro}</p>
+          <div class="contrib">
+            <form class="mock-form">
+              <h3>{t.contrib.newTitle}</h3>
+              <label>{t.contrib.name}<input type="text" /></label>
+              <label>{t.contrib.place}<input type="text" /></label>
+              <label>{t.contrib.source}<input type="url" placeholder="https://" /></label>
+              <label>{t.contrib.comment}<textarea></textarea></label>
+              <button type="submit">{t.contrib.send}</button>
+              <p class="mock-msg" aria-live="polite"></p>
+            </form>
+            <form class="mock-form">
+              <h3>{t.contrib.fixTitle}</h3>
+              <label>{t.contrib.record}<input type="text" list="dl-records" /><datalist id="dl-records">{centros.map((c) => <option value={c.nombre} />)}</datalist></label>
+              <label>{t.contrib.source}<input type="url" placeholder="https://" /></label>
+              <label>{t.contrib.comment}<textarea></textarea></label>
+              <button type="submit">{t.contrib.send}</button>
+              <p class="mock-msg" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div>
+          <a class="wordmark" href="#top"><span>{t.wordmark1}</span><span>{t.wordmark2a}<em>{t.wordmark2b}</em>{t.wordmark2c}</span></a>
+          <p style="margin-top:14px">{t.footer.about} <a href="https://motiu.org" rel="noopener">{t.footer.motiu}</a>.</p>
+          <p>{t.footer.credits}</p>
+        </div>
+        <div>
+          <p>{t.footer.map}</p>
+          <p>{t.method.snapshot(exported)}</p>
+          <p>{t.footer.code}: <a href="https://github.com/motiuorg/nocde">github.com/motiuorg/nocde</a></p>
+          <p>{t.footer.license}</p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="application/json" id="app-data" set:html={JSON.stringify(clientData)} />
+    <script>
+      import { init } from '../scripts/app';
+      init();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,440 @@
+[
+ {
+  "id": "41a1441510e181209abcf0ad21da7ae9",
+  "slug": "adenc",
+  "nombre": "ADENC",
+  "tipo": "Organización",
+  "temas": [
+   "Territorio y suelo",
+   "Acción legal",
+   "Impacto ambiental"
+  ],
+  "estado": "Activa",
+  "ambito": "Cerdanyola del Vallès (Barcelona)",
+  "web": "https://www.totripollet.cat/actualitat/centenar-persones-participen-primera-protesta-contra-centres-dades-catalunya_2243182102.html",
+  "verificado": "2026-11-16",
+  "resumen": "Según la prensa local, lleva años cuestionando el desarrollo urbanístico del Parc de l'Alba, apoyó la concentración del 7 de noviembre de 2026 contra los megacentros de datos y mantendrá, junto con Refem, la vía judicial por el Parc de l'Alba.",
+  "centros": [
+   "41a1441510e181c1a3e3f06d11f539d1"
+  ]
+ },
+ {
+  "id": "41a1441510e181a885c4e9244c699036",
+  "slug": "asociacion-de-accion-publica-para-la-defensa-del-patrimonio-aragones-apudepa",
+  "nombre": "Asociación de Acción Pública para la Defensa del Patrimonio Aragonés (APUDEPA)",
+  "tipo": "Organización",
+  "temas": [
+   "Acción legal",
+   "Territorio y suelo",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Aragón",
+  "web": "https://nocentrosdedatosaragon.org/recorrido/",
+  "verificado": "2026-11-16",
+  "resumen": "Según la cronología de la campaña y la prensa, figura entre las entidades que presentaron alegaciones y recursos contra los proyectos de Microsoft en Aragón.",
+  "centros": [
+   "d911441510e183d696640142ce369509",
+   "41a1441510e1817bb193f2481bb4f39a"
+  ]
+ },
+ {
+  "id": "41a1441510e181a1afa8fe633a18f7ce",
+  "slug": "asociacion-naturalista-de-aragon-ansar",
+  "nombre": "Asociación Naturalista de Aragón (ANSAR)",
+  "tipo": "Organización",
+  "temas": [
+   "Impacto ambiental",
+   "Territorio y suelo",
+   "Acción legal"
+  ],
+  "estado": "Activa",
+  "ambito": "Aragón",
+  "web": "https://nocentrosdedatosaragon.org/recorrido/",
+  "verificado": "2026-11-16",
+  "resumen": "Asociación naturalista aragonesa. Según la cronología de la campaña No es sequía, es saqueo, presentó alegaciones y recursos contra los proyectos de Microsoft y colaboró en las de ACS y SAMCA; en mayo de 2026 participó en un «Paseo Tóxico» junto a los terrenos de Microsoft. La prensa la cita como alegante contra el PIGA de SAMCA en Luceni.",
+  "centros": [
+   "d911441510e183d696640142ce369509",
+   "41a1441510e1817bb193f2481bb4f39a",
+   "41a1441510e1812d930dc3eedaf4f397",
+   "41a1441510e1816aaa54fa136c14242e"
+  ]
+ },
+ {
+  "id": "41a1441510e18142a33cfaa70954eb49",
+  "slug": "asociacion-vecinal-montes-de-torrero-venecia",
+  "nombre": "Asociación Vecinal Montes de Torrero-Venecia",
+  "tipo": "Plataforma vecinal",
+  "temas": [
+   "Territorio y suelo",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Torrero y Venecia (Zaragoza)",
+  "web": "https://nocentrosdedatosaragon.org/recorrido/",
+  "verificado": "2026-11-16",
+  "resumen": "Asociación vecinal de los barrios zaragozanos de Torrero y Venecia, citada entre las entidades que presentaron alegaciones contra los proyectos de Microsoft. Es una entidad distinta de la Plataforma Salvemos los Pinares de Venecia.",
+  "centros": [
+   "d911441510e183d696640142ce369509"
+  ]
+ },
+ {
+  "id": "41a1441510e181ffb88ce9b84d0605a3",
+  "slug": "asturias-contra-el-centro-de-datos",
+  "nombre": "Asturias contra el centro de datos",
+  "tipo": "Plataforma vecinal",
+  "temas": [
+   "Territorio y suelo",
+   "Agua",
+   "Energía",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Salas y comarca (Asturias)",
+  "web": "https://eldiariodeasturias.com/asturias/la-plataforma-vecinal-contra-el-centro-de-datos-de-salas-reune-a-cerca-de-70-personas-en-su-presentacion-publica/",
+  "verificado": "2026-11-16",
+  "resumen": "Plataforma vecinal presentada en septiembre de 2026 ante unas 70 personas. Advierte de impactos hídricos y térmicos y de posibles expropiaciones; son estimaciones propias.",
+  "centros": [
+   "41a1441510e181dbb045f6693c3b9846"
+  ]
+ },
+ {
+  "id": "41a1441510e181c5b701c9af336d90a4",
+  "slug": "aturem-la-gigafactoria-d-ia-mora-la-nova",
+  "nombre": "Aturem la gigafactoria d'IA (Móra la Nova)",
+  "tipo": "Plataforma vecinal",
+  "temas": [
+   "Agua",
+   "Energía",
+   "Territorio y suelo",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Móra la Nova y Ribera d'Ebre (Tarragona)",
+  "web": "https://www.3cat.cat/3catinfo/mes-dun-miler-de-persones-es-mobilitzen-a-mora-debre-contra-els-macroprojectes-al-mon-rural/noticia/3439935/",
+  "verificado": "2026-11-16",
+  "resumen": "Plataforma que agrupa a GEPEC, CGT, Ecologistes en Acció y otras entidades; según 3Cat movilizó a más de mil personas en Móra d'Ebre contra macroproyectos rurales, entre ellos la candidatura de la gigafactoría de IA de Móra la Nova. No hay un proyecto de centro de datos documentado asociado.",
+  "centros": []
+ },
+ {
+  "id": "41a1441510e181a3a9d3fa6c025611e2",
+  "slug": "campanya-contra-els-megacentres-de-dades-a-catalunya",
+  "nombre": "Campanya contra els Megacentres de Dades a Catalunya",
+  "tipo": "Campaña o iniciativa",
+  "temas": [
+   "Agua",
+   "Energía",
+   "Territorio y suelo",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Cataluña",
+  "web": "https://www.totcerdanyola.cat/actualitat/societat/centenar-persones-es-concentren-davant-ajuntament-contra-centres-dades_2243167102.html",
+  "verificado": "2026-11-16",
+  "resumen": "Impulsó la primera concentración del país contra los megacentros de datos, el 7 de noviembre de 2026 ante el Ayuntamiento de Cerdanyola del Vallès, con apoyo de ADENC y Refem. Se opone al plan de la Generalitat de unos 26 centros de datos.",
+  "centros": [
+   "41a1441510e181c1a3e3f06d11f539d1"
+  ]
+ },
+ {
+  "id": "41a1441510e1814aa47cc7f5b4169c7b",
+  "slug": "defendiendo-lo-vacio",
+  "nombre": "Defendiendo lo Vacío",
+  "tipo": "Plataforma vecinal",
+  "temas": [
+   "Territorio y suelo",
+   "Energía",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Zamora",
+  "web": "https://www.zamora24horas.com/local/vecinos-monfarracinos-piden-ayuntamiento-zamora-alegue-centro-datos",
+  "verificado": "2026-11-16",
+  "resumen": "Según la prensa local, junto con la Plataforma Vecinal en Defensa de la Tierra del Pan pidió al Ayuntamiento de Zamora que alegara contra el centro de datos de Monfarracinos y reclamó evaluar de forma conjunta los proyectos energéticos e industriales de la zona. Habla de unas 1.500 ha de ocupación potencial (estimación de la plataforma).",
+  "centros": [
+   "41a1441510e181aebf19f774d5d05a5c"
+  ]
+ },
+ {
+  "id": "8901441510e182139a4501defd92f607",
+  "slug": "ecologistas-en-accion-aragon",
+  "nombre": "Ecologistas en Acción — Aragón",
+  "tipo": "Organización",
+  "temas": [
+   "Agua",
+   "Energía",
+   "Territorio y suelo",
+   "Impacto ambiental",
+   "Participación y transparencia",
+   "Acción legal"
+  ],
+  "estado": "Activa",
+  "ambito": "Aragón",
+  "web": "https://www.ecologistasenaccion.org/territorios/aragon/",
+  "verificado": "2026-11-16",
+  "resumen": "Federación aragonesa de Ecologistas en Acción. Presentó alegaciones contra los proyectos de Microsoft, Rhodes (Calatorao), ACS, SAMCA y AWS en Teruel, y consta como la única entidad con objeciones en la resolución del INAGA sobre el agua de AWS en El Burgo de Ebro. Sus cálculos de consumo son estimaciones de la organización.",
+  "centros": [
+   "af01441510e18267854001f1f3f41dc6",
+   "d911441510e183d696640142ce369509",
+   "41a1441510e1810096dcdeec80bd0372",
+   "41a1441510e1817bb193f2481bb4f39a",
+   "41a1441510e1816aaa54fa136c14242e",
+   "41a1441510e1812d930dc3eedaf4f397",
+   "41a1441510e18120982afe9e99c604b0"
+  ]
+ },
+ {
+  "id": "bc41441510e182799bd7819c24502430",
+  "slug": "ecologistas-en-accion-extremadura",
+  "nombre": "Ecologistas en Acción — Extremadura",
+  "tipo": "Organización",
+  "temas": [
+   "Agua",
+   "Energía",
+   "Impacto ambiental",
+   "Participación y transparencia",
+   "Acción legal"
+  ],
+  "estado": "Activa",
+  "ambito": "Extremadura",
+  "web": "https://www.ecologistasenaccion.org/374718",
+  "verificado": "2026-11-16",
+  "resumen": "Recurrió la declaración PREMIA del proyecto de Merlin Edged en Navalmoral de la Mata; el TSJ de Extremadura admitió el recurso a trámite en agosto de 2026 (no hay sentencia conocida). También presentó alegaciones ambientales.",
+  "centros": [
+   "cf21441510e1836ba84801c743a9ccf7"
+  ]
+ },
+ {
+  "id": "41a1441510e181cd9d7bdbff24c36d3c",
+  "slug": "ecologistas-en-accion-getafe",
+  "nombre": "Ecologistas en Acción — Getafe",
+  "tipo": "Organización",
+  "temas": [
+   "Energía",
+   "Impacto ambiental",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Getafe (Madrid)",
+  "web": "https://www.soydemadrid.com/noticia-getafe/ecologistas-en-accion-alerta-del-impacto-del-nuevo-centro-de-datos-153966.aspx",
+  "verificado": "2026-11-16",
+  "resumen": "Alerta del impacto del centro de datos Getafe II (consumo eléctrico, ruido, calor y emisiones de refrigeración y respaldo) y, con colectivos vecinales, reclama estudios independientes.",
+  "centros": [
+   "41a1441510e181c4beb1ecd9402ff825"
+  ]
+ },
+ {
+  "id": "41a1441510e181b18881d314a062394e",
+  "slug": "ecologistas-en-accion-huesca",
+  "nombre": "Ecologistas en Acción — Huesca",
+  "tipo": "Organización",
+  "temas": [
+   "Agua",
+   "Energía",
+   "Territorio y suelo",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Huesca",
+  "web": "https://www.ecologistasenaccionhuesca.org/huesca-responde-a-las-grandes-tecnologicas/",
+  "verificado": "2026-11-16",
+  "resumen": "Grupo local de Ecologistas en Acción que publica sobre la expansión de las tecnológicas en Huesca y, según la prensa, participó en la concentración de Huesca contra los centros de datos.",
+  "centros": []
+ },
+ {
+  "id": "41a1441510e181f2bea7c5c625435fe9",
+  "slug": "ecologistas-zamora",
+  "nombre": "Ecologistas Zamora",
+  "tipo": "Organización",
+  "temas": [
+   "Energía",
+   "Impacto ambiental",
+   "Territorio y suelo",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Zamora (provincia)",
+  "web": "https://zamora3punto0.com/ecologistas-zamora-se-moviliza-contra-la-instalacion-del-macrocentro-de-datos-en-monfarracinos/",
+  "verificado": "2026-11-16",
+  "resumen": "Pide paralizar el centro de datos de IA de Monfarracinos y critica que la Junta lo tramite como Proyecto Regional, con posible expropiación de suelo agrícola. Sus cifras de emisiones son estimaciones del colectivo.",
+  "centros": [
+   "41a1441510e181aebf19f774d5d05a5c"
+  ]
+ },
+ {
+  "id": "11a1441510e183ffb1aa81b90c2b0148",
+  "slug": "no-es-sequia-es-saqueo",
+  "nombre": "No es sequía, es saqueo",
+  "tipo": "Campaña o iniciativa",
+  "temas": [
+   "Agua",
+   "Energía",
+   "Territorio y suelo",
+   "Impacto ambiental",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Aragón",
+  "web": "https://nocentrosdedatosaragon.org/",
+  "verificado": "2026-11-16",
+  "resumen": "Campaña aragonesa de investigación, divulgación y organización contra los macrocentros de datos. Organizó en septiembre de 2025 la primera manifestación en España sobre este asunto, y su mapa y su cronología son una de las fuentes de este proyecto. Firmó alegaciones conjuntas contra Microsoft, ACS y SAMCA.",
+  "centros": [
+   "d911441510e183d696640142ce369509",
+   "41a1441510e1817bb193f2481bb4f39a",
+   "41a1441510e1816aaa54fa136c14242e",
+   "41a1441510e1812d930dc3eedaf4f397"
+  ]
+ },
+ {
+  "id": "41a1441510e18151ba73e3ab4e10e8ed",
+  "slug": "plataforma-de-afectados-por-el-centro-de-datos-de-cuarte",
+  "nombre": "Plataforma de afectados por el centro de datos de Cuarte",
+  "tipo": "Plataforma vecinal",
+  "temas": [
+   "Participación y transparencia",
+   "Agua",
+   "Energía",
+   "Acción legal"
+  ],
+  "estado": "Activa",
+  "ambito": "Cuarte y Huesca",
+  "web": "https://www.eldiariodehuesca.com/actualidad/concentracion-en-huesca-llama-oponerse-centros-datos-momento-detenerlos-es-ahora_48791_102.html",
+  "verificado": "2026-11-16",
+  "resumen": "Según la prensa, se unió a Ecologistas en Acción y otros colectivos en la concentración de Huesca contra los centros de datos y denuncia falta de información. La consulta vecinal de Cuarte de octubre de 2026 la organizó otra entidad, la Asociación de Vecinos de Cuarte.",
+  "centros": []
+ },
+ {
+  "id": "6371441510e183f2be660193a32094d9",
+  "slug": "plataforma-salvemos-los-pinares-de-venecia",
+  "nombre": "Plataforma Salvemos los Pinares de Venecia",
+  "tipo": "Plataforma vecinal",
+  "temas": [
+   "Territorio y suelo",
+   "Impacto ambiental",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Torrero / Puerto Venecia, Zaragoza",
+  "web": "https://www.ecologistasenaccion.org/355073/asociaciones-ecologistas-y-vecinales-presentan-alegaciones-contra-el-piga-de-microsoft-en-aragon",
+  "verificado": "2026-11-16",
+  "resumen": "Plataforma vecinal contra el campus de Microsoft junto al pinar de Puerto Venecia. Citada como apoyo de las alegaciones conjuntas; la prensa le atribuye más de 350 alegaciones ambientales (cifra por contrastar). Participó en un «Paseo Tóxico» en mayo de 2026.",
+  "centros": [
+   "d911441510e183d696640142ce369509"
+  ]
+ },
+ {
+  "id": "41a1441510e18187b0ccd5026dd27295",
+  "slug": "plataforma-vecinal-en-defensa-de-la-tierra-del-pan",
+  "nombre": "Plataforma Vecinal en Defensa de la Tierra del Pan",
+  "tipo": "Plataforma vecinal",
+  "temas": [
+   "Territorio y suelo",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Tierra del Pan (Zamora)",
+  "web": "https://www.za49.es/zamora/temor-crece-puertas-zamora-vecinos-alertan-avalancha-proyectos-industriales-podria-transformar-entorno_1_6049822.html",
+  "verificado": "2026-11-16",
+  "resumen": "Según la prensa local, se reunió con el gobierno municipal de Zamora junto con Defendiendo lo Vacío para pedir alegaciones al centro de datos de Monfarracinos y exige aclarar cuántos de los empleos anunciados quedarían realmente en la zona.",
+  "centros": [
+   "41a1441510e181aebf19f774d5d05a5c"
+  ]
+ },
+ {
+  "id": "41a1441510e18180a7bac3d6d2d234b1",
+  "slug": "refem",
+  "nombre": "Refem",
+  "tipo": "Organización",
+  "temas": [
+   "Territorio y suelo",
+   "Acción legal",
+   "Impacto ambiental"
+  ],
+  "estado": "Activa",
+  "ambito": "Cerdanyola del Vallès (Barcelona)",
+  "web": "https://www.totripollet.cat/actualitat/centenar-persones-participen-primera-protesta-contra-centres-dades-catalunya_2243182102.html",
+  "verificado": "2026-11-16",
+  "resumen": "Según la prensa local, lleva años cuestionando el desarrollo urbanístico del Parc de l'Alba, apoyó la concentración del 7 de noviembre de 2026 contra los megacentros de datos y mantendrá, junto con ADENC, la vía judicial por el Parc de l'Alba.",
+  "centros": [
+   "41a1441510e181c1a3e3f06d11f539d1"
+  ]
+ },
+ {
+  "id": "41a1441510e1814e9b42fa4232978262",
+  "slug": "stop-centros-de-datos-la-puebla",
+  "nombre": "Stop Centros de Datos La Puebla",
+  "tipo": "Plataforma vecinal",
+  "temas": [
+   "Participación y transparencia",
+   "Territorio y suelo"
+  ],
+  "estado": "Activa",
+  "ambito": "La Puebla de Alfindén (Zaragoza)",
+  "web": "https://www.instagram.com/stop_centrosdedatos_lapuebla",
+  "verificado": "2026-11-16",
+  "resumen": "Grupo vecinal contra los centros de datos en La Puebla de Alfindén. La campaña No es sequía, es saqueo registra que nació en julio de 2026 como ejemplo de autoorganización en el mundo rural.",
+  "centros": [
+   "41a1441510e1816aaa54fa136c14242e"
+  ]
+ },
+ {
+  "id": "41a1441510e181519c77cac16732296e",
+  "slug": "stop-dirty-data-centres",
+  "nombre": "Stop Dirty Data Centres",
+  "tipo": "Campaña o iniciativa",
+  "temas": [
+   "Agua",
+   "Energía",
+   "Participación y transparencia",
+   "Impacto ambiental"
+  ],
+  "estado": "Activa",
+  "ambito": "Europa (con acciones en España)",
+  "web": "https://stopdirtydatacentres.eu/",
+  "verificado": "2026-11-16",
+  "resumen": "Red europea que promovió la jornada de movilización de noviembre de 2026, con la mayor parte de las acciones en España. Reclama una moratoria hasta evaluar los efectos sobre agua, energía y territorio.",
+  "centros": []
+ },
+ {
+  "id": "e8a1441510e183a3be9d0152137fdc71",
+  "slug": "tu-nube-seca-mi-rio",
+  "nombre": "Tu Nube Seca Mi Río",
+  "tipo": "Campaña o iniciativa",
+  "temas": [
+   "Agua",
+   "Energía",
+   "Territorio y suelo",
+   "Impacto ambiental",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "España; articulación entre territorios",
+  "web": "https://tunubesecamirio.com/",
+  "verificado": "2026-11-16",
+  "resumen": "Colectivo estatal de investigación y coordinación. Publicó en febrero de 2026 el informe «El precio de las nubes» sobre Aragón, firmó alegaciones conjuntas contra Microsoft, ACS y SAMCA, y afirma que nació contra el proyecto de Meta en Talavera de la Reina.",
+  "centros": [
+   "d911441510e183d696640142ce369509",
+   "41a1441510e1817bb193f2481bb4f39a",
+   "41a1441510e1816aaa54fa136c14242e",
+   "41a1441510e181a89239c9588b516042"
+  ]
+ },
+ {
+  "id": "41a1441510e181558b07e41cc1457aee",
+  "slug": "zamora-en-pie",
+  "nombre": "Zamora en Pie",
+  "tipo": "Plataforma vecinal",
+  "temas": [
+   "Territorio y suelo",
+   "Participación y transparencia"
+  ],
+  "estado": "Activa",
+  "ambito": "Zamora (provincia)",
+  "web": "https://www.infobae.com/espana/agencias/2026/10/03/los-ecologistas-aprietan-contra-los-centros-de-datos-frente-al-respaldo-de-las-autonomias/",
+  "verificado": "2026-11-16",
+  "resumen": "Colectivo citado por EFE, junto a Ecologistas Zamora, entre quienes piden paralizar el centro de datos de Monfarracinos.",
+  "centros": [
+   "41a1441510e181aebf19f774d5d05a5c"
+  ]
+ }
+]

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+# Raw Notion exports include records still "Por verificar"; only the confirmed
+# subset (src/data/*.json) is published.
+data/raw/
