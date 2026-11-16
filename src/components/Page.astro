@@ -24,7 +24,7 @@ const total = centros.length;
 const ccaas = [...new Set(centros.map((c) => c.ccaa))].sort((a, b) => v(lang, a).localeCompare(v(lang, b), lang));
 const contested = centros.filter((c) => c.organizaciones.length > 0).length;
 const pct = Math.round((contested / total) * 100);
-const pending = meta.counts.centrosPendientes;
+const planned = centros.filter((c) => c.estado === 'Propuesto o planificado').length;
 const temasUsed = TEMAS.filter((tm) => organizaciones.some((o) => o.temas.includes(tm)));
 
 // Draw big markers first so small ones stay clickable on top.
@@ -100,10 +100,10 @@ const legendSizes = [10, 100, 500, 1000];
         <p class="hero-credit">{t.heroCredit} <a href="#gracias">{t.heroCreditLink} →</a></p>
         <div class="stats">
           <div class="stat"><b>{total}</b><span>{t.stats.proyectos}</span></div>
+          <div class="stat is-ocre"><b>{planned}</b><span>{t.stats.planned}</span></div>
           <div class="stat"><b>{ccaas.length}</b><span>{t.stats.ccaa}</span></div>
           <div class="stat is-agua"><b>{organizaciones.length}</b><span>{t.stats.orgs}</span></div>
           <div class="stat is-agua"><b>{pct}&nbsp;%</b><span>{t.stats.contested}</span></div>
-          <div class="stat is-ocre"><b>{pending}</b><span>{t.stats.pending}</span></div>
         </div>
       </div></section>
 

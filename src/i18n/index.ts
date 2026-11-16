@@ -84,15 +84,15 @@ export const strings = {
     heroCredit: 'Casi todo lo que verás aquí lo han investigado y mapeado antes otras personas.',
     heroCreditLink: 'Conoce su trabajo',
     stats: {
-      proyectos: 'proyectos confirmados',
+      proyectos: 'proyectos de centros de datos',
       ccaa: 'comunidades autónomas',
       orgs: 'organizaciones e iniciativas',
       contested: 'de los proyectos con resistencia documentada',
-      pending: 'fichas aún en verificación (no se muestran)',
+      planned: 'en proyecto o planificados',
     },
     s01: 'Mapa',
     mapIntro:
-      'Cada círculo es un proyecto: su estilo indica el estado y, cuando hay una cifra fiable, su tamaño la potencia. Un anillo azul con megáfono indica que hay al menos una organización o iniciativa vinculada. Solo se muestran fichas confirmadas.',
+      'Cada círculo es un proyecto: su estilo indica el estado y, cuando hay una cifra fiable, su tamaño la potencia. Un anillo azul con megáfono indica que hay al menos una organización o iniciativa vinculada.',
     filters: {
       title: 'Filtrar',
       estado: 'Estado del proyecto',
@@ -170,7 +170,7 @@ export const strings = {
     method: {
       readTitle: 'Cómo leer este mapa',
       read: [
-        'Solo se muestran fichas confirmadas: la existencia del proyecto, su municipio, su promotor y su estado están respaldados por una fuente oficial o por al menos dos fuentes independientes sin contradicción. El resto sigue en verificación y no se publica.',
+        'Cada ficha se publica cuando la existencia del proyecto, su municipio, su promotor y su estado están respaldados por una fuente oficial o por al menos dos fuentes independientes sin contradicción.',
         'Un proyecto propuesto no es un centro en funcionamiento: el estado distingue anuncios, obras, instalaciones operativas y cancelaciones.',
         'Las cifras de potencia (MW) varían mucho entre fuentes y miden cosas distintas (potencia informática, demanda total, capacidad de conexión). Mostramos lo que publica cada una, sin sumarlas ni presentarlas como consumo. Solo hay un tamaño de círculo cuando existe una cifra única razonable.',
         'La ubicación es aproximada: procede del mapa de una campaña o es la del municipio, y la ficha lo indica. No señala la parcela.',
@@ -223,15 +223,15 @@ export const strings = {
     heroCredit: 'Almost everything you will see here was researched and mapped first by other people.',
     heroCreditLink: 'Meet their work',
     stats: {
-      proyectos: 'confirmed projects',
+      proyectos: 'data centre projects',
       ccaa: 'autonomous communities',
       orgs: 'organisations and initiatives',
       contested: 'of projects with documented resistance',
-      pending: 'records still being verified (not shown)',
+      planned: 'proposed or planned',
     },
     s01: 'Map',
     mapIntro:
-      'Each circle is a project: its style shows the status and, when a reliable figure exists, its size shows capacity. A blue ring with a megaphone means at least one organisation or initiative is linked to it. Only confirmed records are shown.',
+      'Each circle is a project: its style shows the status and, when a reliable figure exists, its size shows capacity. A blue ring with a megaphone means at least one organisation or initiative is linked to it.',
     filters: {
       title: 'Filter',
       estado: 'Project status',
@@ -309,7 +309,7 @@ export const strings = {
     method: {
       readTitle: 'How to read this map',
       read: [
-        'Only confirmed records are shown: the project’s existence, municipality, developer and status are backed by an official source or at least two independent sources without contradiction. The rest is still being verified and is not published.',
+        'A record is published when the project’s existence, municipality, developer and status are backed by an official source or at least two independent sources without contradiction.',
         'A proposed project is not an operating facility: status separates announcements, construction, operating sites and cancellations.',
         'Capacity figures (MW) vary widely between sources and measure different things (IT load, total demand, grid-connection capacity). We show what each source publishes, without adding them up or presenting them as consumption. A circle has a size only when a reasonable single figure exists.',
         'Location is approximate: it comes from a campaign’s map or is the municipality’s, and each record says which. It does not point to the plot.',
