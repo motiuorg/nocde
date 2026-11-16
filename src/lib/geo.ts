@@ -6,7 +6,6 @@ import { feature } from 'topojson-client';
 import topo from 'es-atlas/es/autonomous_regions.json';
 
 export const W = 800;
-export const H = 620;
 
 // Short display names for the IGN region names.
 const SHORT: Record<string, string> = {
@@ -24,7 +23,13 @@ const all = (feature(topo as any, (topo as any).objects.autonomous_regions) as a
 const main = all;
 
 const mainProj = geoConicConformal().rotate([3.5, 0]).parallels([37, 43]);
-mainProj.fitExtent([[20, 12], [W - 12, H - 12]], { type: 'FeatureCollection', features: main } as any);
+const collection = { type: 'FeatureCollection', features: main } as any;
+// Fit by width, then size the frame to the land so there is no empty sea at the bottom.
+mainProj.fitWidth(W - 24, collection);
+const [tx, ty] = mainProj.translate();
+mainProj.translate([tx + 12, ty + 12]);
+const [, [, by]] = geoPath(mainProj).bounds(collection);
+export const H = Math.ceil(by) + 12;
 
 export function project(lon: number, lat: number): [number, number] {
   const p = mainProj([lon, lat]);

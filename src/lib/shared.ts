@@ -1,8 +1,8 @@
 // Helpers shared by build-time Astro components and the client script.
 
 // Fixed radius for projects without a single reliable power figure.
-export const R_DEFAULT = 6.5;
-export const radius = (mw: number | null) => (mw == null ? R_DEFAULT : 2.5 + Math.sqrt(Math.max(mw, 1)) * 0.55);
+export const R_DEFAULT = 10;
+export const radius = (mw: number | null) => (mw == null ? R_DEFAULT : 9 + Math.sqrt(Math.max(mw, 1)) * 0.45);
 
 // Server-rack mark drawn inside a project marker: three stacked units, each with a status light.
 // s = scale (about half the marker radius).

@@ -40,6 +40,7 @@ const clientData = {
     id, slug, nombre, tipo, temas, estado, ambito, web, centros, icon: TIPO_ICON[tipo] ?? 'other',
   })),
   icons: ICON_PATHS,
+  clusterNames: Object.fromEntries(ccaas.map((c) => [c, v(lang, c)])),
   i18n: {
     panel: { ...t.panel, mock: t.contrib.mock },
     table: t.table,
@@ -179,20 +180,20 @@ const legendSizes = [10, 100, 500, 1000];
                   <g id="markers">
                     {markers.map((c) => {
                       const has = c.organizaciones.length > 0;
-                      const bd = (c.r + 3.5) * 0.74;
+                      const bd = (c.r + 4) * 0.76;
                       return (
                         <g class={`mk ${c.k}${c.mw == null ? ' no-mw' : ''}`} data-id={c.id} data-x={c.x} data-y={c.y} transform={`translate(${c.x},${c.y})`} tabindex="0" role="button"
                           aria-label={`${c.nombre}, ${c.municipio}. ${v(lang, c.estado)}${c.mw != null ? `, ${fmtInt(c.mw, lang)} MW` : ''}${has ? `. ${t.legend.ring}` : ''}`}>
-                          <circle class="halo" r={c.r + (has ? 9 : 4.5)} />
-                          {has && <circle class="ring" r={c.r + 3.5} />}
+                          <circle class="halo" r={c.r + (has ? 10 : 5)} />
+                          {has && <circle class="ring" r={c.r + 4} />}
                           <circle class="dot" r={c.r} />
                           {c.k !== 'op' && c.k !== 'can' && <circle class="srv-back" r={c.r * 0.7} />}
-                          {c.k !== 'can' && <g set:html={rackPaths(c.r * 0.42)} />}
+                          {c.k !== 'can' && <g set:html={rackPaths(c.r * 0.5)} />}
                           {c.k === 'can' && <path class="x" d={`M${-c.r * 0.6},${-c.r * 0.6}L${c.r * 0.6},${c.r * 0.6}M${c.r * 0.6},${-c.r * 0.6}L${-c.r * 0.6},${c.r * 0.6}`} />}
                           {has && (
                             <g class="badge" transform={`translate(${bd},${-bd})`}>
-                              <circle r="6.6" />
-                              <path d={mega} transform="translate(-4.4,-4.4) scale(0.37)" />
+                              <circle r="8.6" />
+                              <path d={mega} transform="translate(-5.6,-5.6) scale(0.47)" />
                             </g>
                           )}
                         </g>
@@ -206,6 +207,7 @@ const legendSizes = [10, 100, 500, 1000];
                   <button type="button" id="zoom-reset" aria-label={t.zoomReset} title={t.zoomReset}>⤢</button>
                 </div>
                 <div class="tooltip" id="tooltip" role="presentation"></div>
+                <div class="map-hint" id="map-hint" role="status">{t.mapHint}</div>
               </div>
 
               <div class="legend" aria-label={t.legend.title}>

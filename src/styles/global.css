@@ -310,9 +310,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 .map-frame {
   position: relative; background: var(--blanco); border: 1px solid var(--linea); border-radius: var(--radius);
-  overflow: hidden; touch-action: none;
+  overflow: hidden;
 }
-.map-frame svg { width: 100%; height: auto; cursor: grab; }
+.map-frame svg { width: 100%; height: auto; cursor: grab; touch-action: pan-y; }
 .map-frame svg:active { cursor: grabbing; }
 .region { fill: var(--tierra); stroke: var(--frontera); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
 .region.is-active { fill: var(--tierra-activa); }
@@ -558,3 +558,22 @@ table.projects { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
 .mk.op .srv { stroke: #fff; }
 .mk.op .srv-dot { fill: #fff; }
 .mk.pro .srv-back { fill: color-mix(in srgb, var(--ocre) 12%, var(--blanco)); }
+
+/* Map hint and cluster pills */
+.map-hint {
+  position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); max-width: calc(100% - 24px);
+  background: var(--tinta); color: var(--papel); font-size: 0.82rem; font-weight: 600; padding: 8px 14px;
+  border-radius: 999px; text-align: center; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 6;
+}
+.map-hint.is-on { opacity: 0.94; }
+.cluster-pill { cursor: pointer; }
+.cluster-pill rect { fill: var(--tinta); }
+.cluster-pill text { fill: var(--papel); font-size: 13px; font-weight: 800; font-family: var(--f-sans); text-anchor: middle; dominant-baseline: central; }
+.cluster-pill:hover rect, .cluster-pill:focus-visible rect { fill: var(--agua); }
+.cluster-pill:focus-visible { outline: none; }
+.cluster-pill.is-hidden { display: none; }
+.cluster-pill .leader { stroke: var(--tinta); stroke-width: 1.5; }
+@media (max-width: 600px) {
+  .map-controls { top: 6px; right: 6px; }
+  .map-controls button { width: 30px; height: 30px; }
+}

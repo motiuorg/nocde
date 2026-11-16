@@ -16,6 +16,7 @@ type Data = {
   lang: 'es' | 'en';
   centros: Centro[];
   organizaciones: Org[];
+  clusterNames: Record<string, string>;
   i18n: {
     panel: Record<string, string>;
     table: Record<string, string>;
@@ -76,6 +77,41 @@ export function init() {
   const regionEls = Array.from(svgEl.querySelectorAll<SVGPathElement>('.region'));
   let current: ZoomTransform = zoomIdentity;
 
+  const VB = svgEl.viewBox.baseVal;
+  const cx = VB.width / 2, cy = VB.height / 2;
+  const hint = document.getElementById('map-hint')!;
+  let hintTimer = 0;
+  const showHint = () => { hint.classList.add('is-on'); clearTimeout(hintTimer); hintTimer = window.setTimeout(() => hint.classList.remove('is-on'), 2200); };
+
+  // Cluster pills ("Aragón · 11"): one click zooms to a crowded region while the map is zoomed out.
+  const NS = 'http://www.w3.org/2000/svg';
+  const clusterLayer = document.createElementNS(NS, 'g');
+  clusterLayer.setAttribute('id', 'clusters');
+  svgEl.appendChild(clusterLayer);
+  type Cluster = { el: SVGGElement; members: Centro[]; x: number; y: number };
+  const clusters: Cluster[] = [];
+  const byCcaa = new Map<string, Centro[]>();
+  for (const c of centros) byCcaa.set(c.ccaa, [...(byCcaa.get(c.ccaa) ?? []), c]);
+  for (const [ccaa, members] of byCcaa) {
+    if (members.length < 4) continue;
+    const label = `${data.clusterNames[ccaa] ?? ccaa} · ${members.length}`;
+    const w = label.length * 8.2 + 22;
+    const g = document.createElementNS(NS, 'g') as SVGGElement;
+    g.setAttribute('class', 'cluster-pill');
+    g.setAttribute('tabindex', '0');
+    g.setAttribute('role', 'button');
+    g.setAttribute('aria-label', label);
+    g.innerHTML = `<line class="leader" x1="0" y1="0" x2="0" y2="0"/><rect x="${-w / 2}" y="-13" width="${w}" height="26" rx="13"/><text>${esc(label)}</text>`;
+    clusterLayer.appendChild(g);
+    const x = members.reduce((a, m) => a + m.x, 0) / members.length;
+    const y = members.reduce((a, m) => a + m.y, 0) / members.length;
+    const cl = { el: g, members, x, y };
+    clusters.push(cl);
+    const go = (e: Event) => { e.stopPropagation(); fitTo(members); };
+    g.addEventListener('click', go);
+    g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(e); } });
+  }
+
   const place = (t: ZoomTransform) => {
     current = t;
     layer.attr('transform', t.toString());
@@ -83,20 +119,51 @@ export function init() {
       const x = Number(m.dataset.x), y = Number(m.dataset.y);
       m.setAttribute('transform', `translate(${t.applyX(x)},${t.applyY(y)})`);
     }
+    for (const cl of clusters) {
+      const px = t.applyX(cl.x), py = t.applyY(cl.y);
+      const ox = 70, oy = -70; // pill sits up-right of the cluster, joined by a leader line
+      cl.el.setAttribute('transform', `translate(${px + ox},${py + oy})`);
+      const ln = cl.el.querySelector('line')!;
+      ln.setAttribute('x2', String(-ox)); ln.setAttribute('y2', String(-oy));
+      const anyOn = cl.members.some((m) => !dimmed.has(m.id));
+      cl.el.classList.toggle('is-hidden', t.k > 2.2 || !anyOn);
+    }
   };
+  const dimmed = new Set<string>();
   const z = zoom<SVGSVGElement, unknown>()
-    .scaleExtent([1, 10])
-    .translateExtent([[-100, -100], [900, 720]])
+    .scaleExtent([1, 12])
+    .translateExtent([[-120, -120], [VB.width + 120, VB.height + 120]])
+    // Wheel zooms only with Ctrl/⌘ (so the page can still scroll); on touch, two fingers.
+    .wheelDelta((e: any) => -e.deltaY * (e.deltaMode === 1 ? 0.05 : e.deltaMode ? 1 : 0.0015))
+    .filter((e: any) => {
+      if (e.type === 'wheel') {
+        if (e.ctrlKey || e.metaKey) return true;
+        showHint();
+        return false;
+      }
+      if (e.type.startsWith('touch')) return (e.touches?.length ?? 0) >= 2;
+      return !e.button;
+    })
     .on('zoom', (e) => { place(e.transform); hideTip(); });
-  svg.call(z).on('dblclick.zoom', null);
-  document.getElementById('zoom-in')!.addEventListener('click', () => svg.transition().duration(250).call(z.scaleBy, 1.6));
-  document.getElementById('zoom-out')!.addEventListener('click', () => svg.transition().duration(250).call(z.scaleBy, 1 / 1.6));
-  document.getElementById('zoom-reset')!.addEventListener('click', () => svg.transition().duration(300).call(z.transform, zoomIdentity));
+  svg.call(z);
+  const smooth = (t: ZoomTransform) => svg.transition().duration(350).call(z.transform, t);
+  const zoomBy = (f: number) => svg.transition().duration(250).call(z.scaleBy, f, [cx, cy]);
+  document.getElementById('zoom-in')!.addEventListener('click', () => zoomBy(1.7));
+  document.getElementById('zoom-out')!.addEventListener('click', () => zoomBy(1 / 1.7));
+  document.getElementById('zoom-reset')!.addEventListener('click', () => smooth(zoomIdentity));
+
+  // Fit the view to a set of projects (with some padding).
+  const fitTo = (pts: Centro[]) => {
+    if (!pts.length) return smooth(zoomIdentity);
+    const xs = pts.map((p) => p.x), ys = pts.map((p) => p.y);
+    const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+    const k = Math.min(8, Math.max(1, 0.62 / Math.max((x1 - x0) / VB.width, (y1 - y0) / VB.height, 0.08)));
+    smooth(zoomIdentity.translate(cx - ((x0 + x1) / 2) * k, cy - ((y0 + y1) / 2) * k).scale(k));
+  };
 
   const zoomTo = (c: Centro) => {
-    const k = Math.max(current.k, 3);
-    const t = zoomIdentity.translate(400 - c.x * k, 310 - c.y * k).scale(k);
-    svg.transition().duration(450).call(z.transform, t);
+    const k = Math.max(current.k, 4);
+    smooth(zoomIdentity.translate(cx - c.x * k, cy - c.y * k).scale(k));
   };
 
   // Tooltip
@@ -256,13 +323,23 @@ export function init() {
   });
   document.getElementById('org-focus-clear')!.addEventListener('click', () => { state.focusOrg = ''; update(); });
 
+  let lastCcaa = '';
   const update = () => {
     const visible = centros.filter(matches);
     const ids = new Set(visible.map((c) => c.id));
+    dimmed.clear();
     for (const m of markerEls) {
       const on = ids.has(m.dataset.id!);
       m.classList.toggle('is-dim', !on);
       m.setAttribute('tabindex', on ? '0' : '-1');
+      if (!on) dimmed.add(m.dataset.id!);
+    }
+    place(current);
+    // Picking a region zooms to it; clearing it zooms back out.
+    if (state.ccaa !== lastCcaa) {
+      lastCcaa = state.ccaa;
+      if (lastCcaa) fitTo(centros.filter((c) => c.ccaa === lastCcaa));
+      else if (current.k !== 1) smooth(zoomIdentity);
     }
     for (const r of regionEls) r.classList.toggle('is-active', !!state.ccaa && r.dataset.name === state.ccaa);
     const label = i18n.showing.replace('{n}', String(visible.length)).replace('{total}', String(centros.length));
@@ -295,12 +372,8 @@ export function init() {
     const first = [...pts].sort((a, b) => (b.mw ?? 0) - (a.mw ?? 0))[0];
     if (first) selectCentro(first.id);
     // Fit the linked centers.
-    const xs = pts.map((p) => p.x), ys = pts.map((p) => p.y);
-    const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
-    const k = Math.min(6, Math.max(1, 0.6 / Math.max((x1 - x0) / 800, (y1 - y0) / 620, 0.12)));
-    const t = zoomIdentity.translate(400 - ((x0 + x1) / 2) * k, 310 - ((y0 + y1) / 2) * k).scale(k);
+    fitTo(pts);
     frame.scrollIntoView({ block: 'center' });
-    svg.transition().duration(500).call(z.transform, t);
   });
 
   // ---------- Prototype forms (they do not send anything) ----------
