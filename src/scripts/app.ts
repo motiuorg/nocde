@@ -85,6 +85,7 @@ export function init() {
 
   // Cluster pills ("Aragón · 11"): one click zooms to a crowded region while the map is zoomed out.
   const NS = 'http://www.w3.org/2000/svg';
+  const SHOW_CLUSTER_PILLS = false; // disabled on request; kept in case it is wanted later
   const clusterLayer = document.createElementNS(NS, 'g');
   clusterLayer.setAttribute('id', 'clusters');
   svgEl.appendChild(clusterLayer);
@@ -93,7 +94,7 @@ export function init() {
   const byCcaa = new Map<string, Centro[]>();
   for (const c of centros) byCcaa.set(c.ccaa, [...(byCcaa.get(c.ccaa) ?? []), c]);
   for (const [ccaa, members] of byCcaa) {
-    if (members.length < 4) continue;
+    if (!SHOW_CLUSTER_PILLS || members.length < 4) continue;
     const label = `${data.clusterNames[ccaa] ?? ccaa} · ${members.length}`;
     const w = label.length * 8.2 + 22;
     const g = document.createElementNS(NS, 'g') as SVGGElement;
