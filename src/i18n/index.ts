@@ -86,9 +86,9 @@ export const strings = {
     stats: {
       proyectos: 'proyectos de centros de datos',
       ccaa: 'comunidades autónomas',
-      orgs: 'organizaciones e iniciativas',
+      orgs: 'organizaciones e iniciativas que se movilizan contra los centros de datos',
       contested: 'de los proyectos con resistencia documentada',
-      planned: 'centros de datos en proyecto o en construcción: aún no están en funcionamiento',
+      planned: 'centros de datos en proyecto o en construcción',
     },
     s01: 'Mapa',
     mapIntro:
@@ -225,9 +225,9 @@ export const strings = {
     stats: {
       proyectos: 'data centre projects',
       ccaa: 'autonomous communities',
-      orgs: 'organisations and initiatives',
+      orgs: 'organisations and initiatives mobilising against data centres',
       contested: 'of projects with documented resistance',
-      planned: 'data centres planned or under construction: not yet operating',
+      planned: 'data centres planned or under construction',
     },
     s01: 'Map',
     mapIntro:
