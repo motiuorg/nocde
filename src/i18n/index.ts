@@ -88,7 +88,7 @@ export const strings = {
       ccaa: 'comunidades autónomas',
       orgs: 'organizaciones e iniciativas',
       contested: 'de los proyectos con resistencia documentada',
-      planned: 'en proyecto o planificados',
+      planned: 'centros de datos en proyecto o en construcción: aún no están en funcionamiento',
     },
     s01: 'Mapa',
     mapIntro:
@@ -227,7 +227,7 @@ export const strings = {
       ccaa: 'autonomous communities',
       orgs: 'organisations and initiatives',
       contested: 'of projects with documented resistance',
-      planned: 'proposed or planned',
+      planned: 'data centres planned or under construction: not yet operating',
     },
     s01: 'Map',
     mapIntro:
